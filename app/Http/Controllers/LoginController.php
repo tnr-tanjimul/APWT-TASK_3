@@ -1,129 +1,112 @@
 <?php
 
+  
 namespace App\Http\Controllers;
 
+
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use App\Http\Controllers\Redirect;
+
+   
 
 class LoginController extends Controller
+
 {
+
+    /*
+
+    |--------------------------------------------------------------------------
+
+    | Login Controller
+
+    |--------------------------------------------------------------------------
+
+    |
+
+    | This controller handles authenticating users for the application and
+
+    | redirecting them to your home screen. The controller uses a trait
+
+    | to conveniently provide its functionality to your applications.
+
+    |
+
+    */
+
+  
+
+    use AuthenticatesUsers;
+
+  
+
     /**
-     * Display a listing of the resource.
+
+     * Where to redirect users after login.
+
      *
-     * @return \Illuminate\Http\Response
+
+     * @var string
+
      */
-    public function index()
+
+    protected $redirectTo = '/home';
+
+   
+
+    /**
+
+     * Create a new controller instance.
+
+     *
+
+     * @return void
+
+     */
+
+    public function __construct()
+
     {
-        //
+
+        $this->middleware('guest')->except('logout');
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+   
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function submit(Request $request)
-    {
-        $validator = Validator::make([], []);
-
-        $validated = $request->validate([
-            'username' => 'required|min:10|max:100',
-            'password' => 'required|min:6',
-            
+    public function login(Request $request)
+    {   
+        $this->validate($request, [
+            'email' => 'required|email|',
+            'password' => 'required',
         ]);
 
-        
-        $users = array(
-            array(
-                'username' => 'tnr@tnrsoft.com',
-                'password' => '123456',
-            ),
-            array(
-                'username' => 't1@tnrsoft.com',
-                'password' => '111111',
-            ),
-            array(
-                'username' => 't2@tnrsoft.com',
-                'password' => '11111',
-            ),
+        $remember_me = $request->has('remember') ? true : false; 
 
-        );
-
-       //////////////////////////////// var_dump($users);
-       
-       
-
-        foreach ($users as $user) {
-            if($request->username == $user['username'] && $request->password == $user['password']) {
-                return view('pages.home');
+        if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password'),'isActive' => 1], $remember_me))
+        {
+            if (auth()->user()->is_admin == 1) {
+                return redirect()->route('admin.home');
+            }else{
+                return redirect()->route('home');
             }
-            
-                
-            
+        }else{
+            return redirect()->route('login')
+                ->with('error','Email And Password Are Wrong.');
         }
 
-        $validator->getMessageBag()->add('password', 'That password is incorrect.');
-        return redirect($request -> url())
-                    -> withErrors($validator)
-                    -> withInput();
         
-        
+
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function logout(Request $request)
     {
-        //
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
