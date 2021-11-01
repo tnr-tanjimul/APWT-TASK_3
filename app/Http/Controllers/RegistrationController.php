@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Hash;
+use Session;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class RegistrationController extends Controller
 {
@@ -35,30 +39,23 @@ class RegistrationController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make([], []);
-
-        $validated = $request->validate([
-            'fullname' => 'required|min:5|max:100',
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
-            'email' => 'required|email',
-            
         ]);
 
+        $user = new User();
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->name = $request->name;
+        $user->isActive = 1;
 
-
-
-
-
-
-
-
-
-
-
-        $validator->getMessageBag()->add('password', 'Account Has been created successfully');
-        return redirect($request -> url())
-                    -> withErrors($validator)
-                    -> withInput();
+        if ($user->save()) {
+            return redirect()->route('login')->with('success','Account Successfully Created');
+        }
+           
+       // return redirect("dashboard")->withSuccess('You have signed-in');
     }
 
     /**
