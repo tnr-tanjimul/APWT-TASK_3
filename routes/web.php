@@ -38,7 +38,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 
 
-/
+
 
 
 
@@ -50,12 +50,21 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 */
 
 Route::prefix('user')->name('user.')->group(function () {
-    Route::get('/', [UserController::class, 'index'])->name('index');
+    Route::get('/dash', [UserController::class, 'index'])->name('index');
+    Route::get('/profile', [UserController::class, 'index'])->name('index');
     Route::post('/', [UserController::class, 'store']);
     Route::get('/delete/{id}', [UserController::class, 'delete']);
-    Route::get('/edit/{id}', [UserController::class, 'edit']);
-    Route::post('/edit/{id}', [UserController::class, 'update']);
+    Route::get('/edit', [UserController::class, 'edit']);
+    Route::post('/edit', [UserController::class, 'update']);
 });
+
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/userlist', [UserController::class, 'userlist'])->name('userlist');
+    Route::get('/edit/{userId}', [UserController::class, 'edit']);
+    Route::post('/edit/{userId}', [UserController::class, 'update']);
+});
+
 
 
 
@@ -71,12 +80,6 @@ Route::get('/home', [DashboardController::class, 'index'])->name('home');
 
 
 
-Route::post('/', [ProductController::class, 'store'])->name('product.add');
-Route::get('/delete/{id}', [ProductController::class, 'delete'])->name('product.delete');
-Route::get('/edit/{id}', [ProductController::class, 'edit']);
-Route::post('/edit', [ProductController::class, 'update'])->name('product.edit');
-Route::get('/view/{id}', [ProductController::class, 'view'])->name('product.view');
-Route::get('/contact-us', function () {return view('pages.contact-us');})->name('contact-us');
 
 
 
