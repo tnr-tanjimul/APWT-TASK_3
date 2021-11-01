@@ -95,27 +95,7 @@
                                     </li>
 
 
-                                    <li>
-                                        <a href="#pppoeSection" data-toggle="collapse">
-                                            <i class="mdi mdi-bullseye"></i>
-                                            <span> PPPoE </span>
-                                            <span class="menu-arrow"></span>
-                                        </a>
-                                        <div class="collapse" id="pppoeSection">
-                                            <ul class="nav-second-level">
-
-
-                                                <li><a href="pppoe-users.php">All Users</a></li>
-                                                <li><a href="pppoe-running-users.php">Active Users</a></li>
-                                                <li><a href="pppoe-active-users.php">Online Users</a></li>
-                                                <li><a href="pppoe-profiles.php">Profiles</a></li>
-                                                <li><a href="pppoe-log.php">Log</a></li>
-                                                <li><a href="pppoe-log-mac.php">Mac Log</a></li>
-                                                <li><a href="pppoe-log-userchange.php">Change Log</a></li>
-                                                <li><a href="pppoe-traffic-monitor.php">User Traffic</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
+                                    
 
 
 
@@ -143,33 +123,9 @@
 
 
 
-                                    <li>
-                                        <a href="#sidebarIcons" data-toggle="collapse">
-                                            <i class="mdi mdi-wifi"></i>
-                                            <span> Hotspot </span>
-                                            <span class="menu-arrow"></span>
-                                        </a>
-                                        <div class="collapse" id="sidebarIcons">
-                                            <ul class="nav-second-level">
 
 
-                                                <li><a href="hotspot-users.php">All Users</a></li>
-                                                <li><a href="hotspot-running-users.php">Active Users</a></li>
-                                                <li><a href="hotspot-active-users.php">Online Users</a></li>
-                                                <li><a href="hotspot-profiles.php">Profiles</a></li>
-                                                <li><a href="hotspot-log.php">Log</a></li>
-                                                <li><a href="hotspot-log-mac.php">Mac Log</a></li>
-                                                <li><a href="hotspot-log-userchange.php">Change Log</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-
-
-
-                                    <li><a href="dhcp-leases.php">
-                                            <i class="mdi mdi-ballot-recount"></i>
-                                            <span> DHCP Leases </span>
-                                        </a></li>
+                                 
                                     <li><a href="traffic-monitor.php">
                                             <i class="mdi mdi-chart-areaspline"></i>
                                             <span> Traffic Monitor </span>
@@ -184,19 +140,9 @@
                                             <i class="mdi mdi-credit-card-clock"></i>
                                             <span> All Payments </span>
                                         </a></li>
-                                    <li>
-                                        <a href="#h_server" data-toggle="collapse">
-                                            <i class="fa fa-server"></i>
-                                            <span> Server </span>
-                                            <span class="menu-arrow"></span>
-                                        </a>
-                                        <div class="collapse" id="h_server">
-                                            <ul class="nav-second-level">
-                                                <li><a href="server-watchdog.php">Watch Dog</a></li>
-                                                <li><a href="server-mikrotik.php">Mikrotik</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
+
+                                 
+
 
                                     <li>
                                         <a href="scc-renew.php">

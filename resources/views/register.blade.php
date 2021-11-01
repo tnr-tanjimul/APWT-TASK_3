@@ -40,34 +40,53 @@
 
                     @csrf
 
+                    @include('inc.flash-message')
+
+
+
                     <div class="form-group">
-                        @error('fullname')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        <label for="name">Full Name</label>
+                        <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="name" value="{{ old('name') }}" required="" placeholder="Enter your name" autocomplete="name" autofocus>
+
                         @error('email')
-                        <div class="alert alert-danger">{{ $message }}</div>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                         @enderror
-                        @error('password')
-                        <div class="alert alert-danger">{{ $message }}</div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" id="email" value="{{ old('email') }}" required="" placeholder="Enter your email" autocomplete="email" autofocus>
+
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="fullname">Full Name</label>
-                        <input class="form-control" type="text" id="fullname" name="fullname" placeholder="Enter your name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="emailaddress">Email address</label>
-                        <input class="form-control" type="email" name="email" required placeholder="Enter your email">
-                    </div>
-                    <div class="form-group">
+                        <a href="auth-recoverpw-2.php" class="text-muted float-right"><small>Forgot your password?</small></a>
                         <label for="password">Password</label>
                         <div class="input-group input-group-merge">
-                            <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password">
+                            <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" placeholder="Enter your password">
+
+
+
                             <div class="input-group-append" data-password="false">
                                 <div class="input-group-text">
                                     <span class="password-eye"></span>
                                 </div>
                             </div>
+
+                            @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+
                         </div>
                     </div>
                     <div class="form-group">

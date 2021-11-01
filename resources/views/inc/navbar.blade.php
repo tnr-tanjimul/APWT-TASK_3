@@ -126,9 +126,10 @@
 
 			            <li class="dropdown notification-list topbar-dropdown">
 			                <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-			                    <img src="assets/images/users/user-5.jpg" alt="user-image" class="rounded-circle">
+			                    <img src="{{asset('assets/images/users/user-5.jpg')}}" alt="user-image" class="rounded-circle">
 			                    <span class="pro-user-name ml-1">
-			                        Tanjimul Islam <i class="mdi mdi-chevron-down"></i>
+                                @isset(Auth::user()->name){{Auth::user()->name}}@endisset  
+                                <i class="mdi mdi-chevron-down"></i>
 			                    </span>
 			                </a>
 			                <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
@@ -158,7 +159,7 @@
 			                    <div class="dropdown-divider"></div>
 
 			                    <!-- item-->
-			                    <a href="logout.php" class="dropdown-item notify-item">
+			                    <a href="{{ route('logout') }}" class="dropdown-item notify-item">
 			                        <i class="fe-log-out"></i>
 			                        <span>Logout</span>
 			                    </a>
@@ -178,21 +179,21 @@
 			        <div class="logo-box">
 			            <a href="index.php" class="logo logo-dark text-center">
 			                <span class="logo-sm">
-			                    <img src="assets/images/logo-sm.png" alt="" height="22">
+			                    <img src="{{asset('assets/images/logo-sm.png')}}" alt="" height="22">
 			                    <!-- <span class="logo-lg-text-light">UBold</span> -->
 			                </span>
 			                <span class="logo-lg">
-			                    <img src="assets/images/logo-dark.png" alt="" height="20">
+			                    <img src="{{asset('assets/images/logo-dark.png')}}" alt="" height="20">
 			                    <!-- <span class="logo-lg-text-light">U</span> -->
 			                </span>
 			            </a>
 
 			            <a href="index.php" class="logo logo-light text-center">
 			                <span class="logo-sm">
-			                    <img src="assets/images/logo-sm.png" alt="" height="22">
+			                    <img src="{{asset('assets/images/logo-sm.png')}}" alt="" height="22">
 			                </span>
 			                <span class="logo-lg">
-			                    <img src="assets/images/logo-light.png" alt="" height="28">
+			                    <img src="{{asset('assets/images/logo-light.png')}}" alt="" height="28">
 			                </span>
 			            </a>
 			        </div>

@@ -3,23 +3,61 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 use App\Models\User;
 
-class AdminController extends Controller
+
+
+
+
+class UserController extends Controller
 {
+   
     public function __construct()
     {
        $this->middleware('auth');
-
     }
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function userlist()
+    
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    
+
+/**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        return View('pages.admin.users')->with('users',User::all());
+        
+        return view('pages.user')->with('servers',User::all());
+    }
+
+
+    public function dash()
+    {
+        
+        return view('pages.dashboard');
+    }
+
+
+
+    public function edit()
+    {
+        
+        return view('pages.user.user-edit')->with('data',User::find(auth()->user()->id));
     }
 
     /**
@@ -38,18 +76,14 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
-
+    
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($userId)
+    public function show($id)
     {
         //
     }
@@ -60,11 +94,7 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($userId)
-    {
-        $var = User::where('id', $userId)->first();
-        return view('pages.admin.user-edit')->with('data', $var);
-    }
+    
 
     /**
      * Update the specified resource in storage.
@@ -73,7 +103,7 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $userId)
+    public function update(Request $request)
     {
         
 
@@ -87,7 +117,7 @@ class AdminController extends Controller
 
 
 
-        $user = User::find($userId);
+        $user = User::find(auth()->user()->id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phoneNo = $request->phoneNo;
@@ -104,7 +134,7 @@ class AdminController extends Controller
        
 
         if($user->save()) {
-            return redirect()->route('admin.userlist')->with("success","User {$request->name} update successfully");
+            return redirect()->route('user.profile')->with("success","User {$request->name} update successfully");
         }
     }
 
@@ -114,9 +144,9 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($userId)
+    public function destroy($id)
     {
-        $var = User::where('id', $userId)->first();
+        $var = User::where('id', $id)->first();
         $name = $var->name;
         $var->delete();
         return redirect()->back()->with("error","User {$name} Successfully Deleted");

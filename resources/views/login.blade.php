@@ -35,44 +35,60 @@
                 <p class="text-muted mb-4">Enter your email address and password to access account.</p>
 
 
-                <div class="invalid-feedback">Please provide a valid city.</div>
+
                 <!-- form -->
                 <form action="{{ route('login') }}" method="post">
                     @csrf
 
                     <div class="form-group">
-                        @error('username')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                        @error('password')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+
+                    @include('inc.flash-message')
+                       
+                        
                     </div>
                     <div class="form-group">
-                        <label for="emailaddress">Email address</label>
-                        <input class="form-control" type="email" name="username" id="emailaddress" value="{{ old('username') }}" required="" placeholder="Enter your email">
+                        <label for="email">Email address</label>
+                        <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" id="email" value="{{ old('email') }}" required="" placeholder="Enter your email" autocomplete="email" autofocus>
+
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <a href="auth-recoverpw-2.php" class="text-muted float-right"><small>Forgot your password?</small></a>
                         <label for="password">Password</label>
                         <div class="input-group input-group-merge">
-                            <input type="password" name="password" id="password" class="form-control" value="{{ old('password') }}" placeholder="Enter your password">
+                            <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" placeholder="Enter your password">
+
+
+
                             <div class="input-group-append" data-password="false">
                                 <div class="input-group-text">
                                     <span class="password-eye"></span>
                                 </div>
                             </div>
+
+                            @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+
                         </div>
                     </div>
 
                     <div class="form-group mb-3">
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" name="remember" class="custom-control-input" id="checkbox-signin">
+                            <input type="checkbox" name="remember" value="1" class="custom-control-input" id="checkbox-signin" {{ old('remember') ? 'checked' : '' }}>
+
+
                             <label class="custom-control-label" for="checkbox-signin">Remember me</label>
                         </div>
                     </div>
                     <div class="form-group mb-0 text-center">
-                        <input type="hidden" name="token" value="{{ csrf_token() }}">
+
 
                         <button class="btn btn-primary btn-block" type="submit">Log In </button>
                     </div>

@@ -4,7 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\DashboardController;
+
+
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 
 
 
@@ -45,24 +48,30 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 /*
 |--------------------------------------------------------------------------
-| Zone Routes
+| UserRoutes
 |--------------------------------------------------------------------------
 */
 
 Route::prefix('user')->name('user.')->group(function () {
-    Route::get('/dash', [UserController::class, 'index'])->name('index');
-    Route::get('/profile', [UserController::class, 'index'])->name('index');
+    Route::get('/dash', [UserController::class, 'dash'])->name('dash');
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
     Route::post('/', [UserController::class, 'store']);
     Route::get('/delete/{id}', [UserController::class, 'delete']);
     Route::get('/edit', [UserController::class, 'edit']);
     Route::post('/edit', [UserController::class, 'update']);
 });
 
+/*
+|--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+*/
 
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/userlist', [UserController::class, 'userlist'])->name('userlist');
-    Route::get('/edit/{userId}', [UserController::class, 'edit']);
-    Route::post('/edit/{userId}', [UserController::class, 'update']);
+    Route::get('/userlist', [AdminController::class, 'userlist'])->name('userlist');
+    Route::get('/edit/{userId}', [AdminController::class, 'edit']);
+    Route::get('/delete/{userId}', [AdminController::class, 'destroy']);
+    Route::post('/edit/{userId}', [AdminController::class, 'update']);
 });
 
 

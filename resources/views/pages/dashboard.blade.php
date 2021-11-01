@@ -46,6 +46,7 @@
 
 
         <div class="col-12">
+        @include('inc.flash-message')
         </div>
 
 
